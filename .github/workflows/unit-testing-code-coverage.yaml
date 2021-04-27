@@ -43,7 +43,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test XUnit.Coverlet.Collector\XUnit.Coverlet.Collector --collect:"XPlat Code Coverage"
+      run: dotnet test XUnit.Coverlet.Collector\XUnit.Coverlet.Collector.csproj --collect:"XPlat Code Coverage"
 
     - name: Get Line Rate from output
       id: get_line_rate
