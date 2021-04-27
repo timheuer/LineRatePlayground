@@ -29,5 +29,9 @@ namespace XUnit.Coverlet
         ]
         public void IsPrime_NonPrimesLessThan10_ReturnFalse(int value) =>
             Assert.False(_primeService.IsPrime(value), $"{value} should not be prime");
+
+        [Theory, InlineData(1001)]
+        public void IsPrime_ValuesGreaterTHan1000_ReturnFalse(int value) =>
+            Assert.False(_primeService.IsPrime(value), $"{value} should not be prime");
     }
 }
