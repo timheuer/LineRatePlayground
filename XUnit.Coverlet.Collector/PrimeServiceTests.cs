@@ -18,6 +18,13 @@ namespace XUnit.Coverlet
 
         [
             Theory,
+            InlineData(101)
+        ]
+        public void IsPrime_ValuesGreaterThan100_ReturnFalse(int value) =>
+            Assert.False(_primeService.IsPrime(value), $"{value} should not be prime");
+
+        [
+            Theory,
             InlineData(2), InlineData(3), InlineData(5), InlineData(7)
         ]
         public void IsPrime_PrimesLessThan10_ReturnTrue(int value) =>
