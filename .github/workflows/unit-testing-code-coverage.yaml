@@ -49,10 +49,10 @@ jobs:
       id: get_line_rate
       shell: pwsh  
       run: |
-        $covreport = Get-ChildItem -Filter *.xml -Recurse | Select-Object 1
+        $covreport = gci -fi *.xml | select -f 1
         [xml]$covxml = Get-Content -Path $covreport
         $lineRate = $covxml.coverage.'line-rate'
-        echo "::set-output name=lineRate::$lineRate"
+        Write-Output "::set-output name=lineRate::$lineRate"
 
     - name: Echo line rate
       run: |
