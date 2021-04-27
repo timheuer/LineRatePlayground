@@ -50,6 +50,7 @@ jobs:
       shell: pwsh  
       run: |
         $covreport = gci -fi *.xml | select -f 1
+        Write-Output $covreport.FullName
         [xml]$covxml = Get-Content -Path $covreport.FullName
         $lineRate = $covxml.coverage.'line-rate'
         Write-Output "::set-output name=lineRate::$lineRate"
