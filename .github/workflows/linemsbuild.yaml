@@ -1,4 +1,4 @@
-name: "Collector Test"
+name: "MSBuild Test"
 
 on:
   push:
@@ -43,28 +43,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test XUnit.Coverlet.Collector/XUnit.Coverlet.Collector.csproj --collect:"XPlat Code Coverage"
-
-    - name: Get Line Rate from output
-      id: get_line_rate
-      shell: pwsh  
-      run: |
-        $covreport = get-childitem -Filter coverage.cobertura.xml -Recurse | Sort-Object -Descending -Property LastWriteTime -Top 1
-        Write-Output $covreport.FullName
-        [xml]$covxml = Get-Content -Path $covreport.FullName
-        $lineRate = $covxml.coverage.'line-rate'
-        Write-Output "::set-output name=lineRate::$lineRate"
-
-    - name: Echo line rate
-      run: |
-        echo ${{ steps.get_line_rate.outputs.lineRate }}
-
-    - name: Check coverage tolerance
-      if: ${{ steps.get_line_rate.outputs.lineRate < 0.9 }}
-      uses: actions/github-script@v3
-      with:
-        script: |
-          core.setFailed('Coverage test below tolerance')
+      run: dotnet test XUnit.Coverlet.MSBuild/XUnit.Coverlet.MSBuild.csproj /p:CollectCoverage=true /p:Threshold=90
 
     - name: Some next step
       shell: pwsh
