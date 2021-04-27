@@ -50,10 +50,21 @@ jobs:
       shell: pwsh  
       run: |
         $covreport = gci -fi *.xml | select -f 1
-        [xml]$covxml = Get-Content -Path $covreport
+        [xml]$covxml = Get-Content -Path $covreport.FullName
         $lineRate = $covxml.coverage.'line-rate'
         Write-Output "::set-output name=lineRate::$lineRate"
 
     - name: Echo line rate
       run: |
         echo ${{ steps.get_line_rate.outputs.lineRate }}
+
+    - name: Check coverage tolerance
+      if: ${{ steps.get_line_rate.outputs.lineRate }} < 0.9
+      uses: actions/github-script@v3
+      with:
+        script: |
+          core.setFailed('Coverage test below tolerance')
+
+    - name: Some next step
+      shell: pwsh
+      run: Write-Output "Success!!!"
