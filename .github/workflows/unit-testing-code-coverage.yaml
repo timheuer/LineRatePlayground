@@ -49,7 +49,7 @@ jobs:
       id: get_line_rate
       shell: pwsh  
       run: |
-        $covreport = gci -fi coverage.cobertura.xml -Recurse | sort LastWriteTime | select -last 1
+        $covreport = gci -fi coverage.cobertura.xml -Recurse | select -f 1
         Write-Output $covreport.FullName
         [xml]$covxml = Get-Content -Path $covreport.FullName
         $lineRate = $covxml.coverage.'line-rate'
