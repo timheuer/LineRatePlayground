@@ -1,17 +1,15 @@
----
-languages:
-- csharp
-products:
-- dotnet
-- dotnet-core
-page_type: sample
-name: ".NET Core unit testing code coverage"
-urlFragment: "unit-testing-code-coverage-cs"
-description: ".NET Core unit testing code coverage and reporting with coverlet, and ReportGenerator."
----
+# .NET Core Code Coverage threshold blocking in CI
+This repo exists as a sample of using a workflow to block CI builds upon test code coverage failing a certain threshold when using Coverlet.  This builds upon an existing code coverage sample (info below) from the official C# docs.
 
-# .NET Core unit testing code coverage
+The only addition here is two workflow files in:
 
+- [.github/workflows/linemsbuild.yaml](.github/workflows/linemsbuild.yaml)
+- [.github/workflows/unit-testing-code-coverage.yaml](.github/workflows/unit-testing-code-coverage.yaml)
+
+workflow files that demonstrate two ways of enforcing the threshold depending on if you are using the VS Test collector methodology or MSBuild integration.
+
+
+## Sample Solutino Origin
 This sample solution includes a class library that is unit tested by two xUnit test projects. The corresponding article, [use code coverage for unit testing](https://docs.microsoft.com/dotnet/core/testing/unit-testing-code-coverage) details the usage of C#, xUnit, coverlet, and ReportGenerator.
 
 ## Sample prerequisites
